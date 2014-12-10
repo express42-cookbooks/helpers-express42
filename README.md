@@ -11,10 +11,6 @@ Installs Express42 helpers
 * Debian
 * Ubuntu
 
-## Cookbooks:
-
-*No dependencies defined*
-
 # Attributes
 
 * `node['express42']['packages']` -  Defaults to `"%w(nscd screen vim curl sysstat gdb dstat tcpdump strace iozone3 htop tmux byobu mailutils ncdu mosh iotop atop zsh mutt)"`.
@@ -25,13 +21,13 @@ Installs Express42 helpers
 
 # Recipes
 
-* helpers-express42::default
-* helpers-express42::mail
-* helpers-express42::network
-* helpers-express42::packages
+* helpers-express42::default - Do nothing.
+* helpers-express42::mail - Configures mail exception handler.
+* helpers-express42::network - Includes Express 42 network module.
+* helpers-express42::packages - Installs Express 42 extra packages.
 
 # License and Maintainer
 
-Maintainer:: LLC Express 42 (<info@express42.com>)
+Maintainer:: LLC Express 42 (<cookbooks@express42.com>)
 
 License:: MIT
