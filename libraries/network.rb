@@ -36,7 +36,6 @@ module Express42
           networks[:public] << [interface[0], ip_addr]
           next
         end
-
       end
       networks
     end
