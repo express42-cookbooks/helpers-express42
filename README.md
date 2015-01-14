@@ -11,6 +11,10 @@ Installs Express42 helpers
 * Debian
 * Ubuntu
 
+## Gems:
+
+* pony
+
 # Attributes
 
 * `node['express42']['packages']` -  Defaults to `"%w(nscd screen vim curl sysstat gdb dstat tcpdump strace iozone3 htop tmux byobu mailutils ncdu mosh iotop atop zsh mutt)"`.
