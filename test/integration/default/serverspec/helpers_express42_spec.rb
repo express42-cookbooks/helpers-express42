@@ -11,7 +11,6 @@ end
   end
 end
 
-#kvm_host
 %w(qemu-kvm libvirt-bin bridge-utils virtinst).each do |pkg|
   describe package(pkg) do
     it { should be_installed }
@@ -27,9 +26,9 @@ describe interface('virbr0') do
 end
 
 describe command('sysctl vm.swappiness') do
-  its(:stdout) { should match /vm.swappiness = 0/ }
+  its(:stdout) { should match(/vm.swappiness = 0/) }
 end
 
 describe command('sysctl vm.zone_reclaim_mode') do
-  its(:stdout) { should match /vm.zone_reclaim_mode = 0/ }
+  its(:stdout) { should match(/vm.zone_reclaim_mode = 0/) }
 end

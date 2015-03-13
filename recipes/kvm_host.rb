@@ -26,12 +26,12 @@
 #
 
 node['express42']['kvm_host']['packages'].each do |pkg|
-    package pkg
+  package pkg
 end
 
-include_recipe "sysctl"
+include_recipe 'sysctl'
 
-service "libvirt-bin" do
+service 'libvirt-bin' do
   action :enable
 end
 
@@ -43,8 +43,8 @@ sysctl_param 'vm.zone_reclaim_mode' do
   value 0
 end
 
-execute "destroy_default_bridge" do
-  command "virsh net-destroy default && virsh net-undefine default"
-  only_if "virsh net-list | grep default"
-  notifies :restart, "service[libvirt-bin]", :delayed
+execute 'destroy_default_bridge' do
+  command 'virsh net-destroy default && virsh net-undefine default'
+  only_if 'virsh net-list | grep default'
+  notifies :restart, 'service[libvirt-bin]', :delayed
 end
