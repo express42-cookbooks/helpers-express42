@@ -15,13 +15,18 @@ Installs Express42 helpers
 
 * pony
 
+## Dependencies:
+
+* sysctl
+
 # Attributes
 
-* `node['express42']['packages']` -  Defaults to `"%w(nscd screen vim curl sysstat gdb dstat tcpdump strace iozone3 htop tmux byobu mailutils ncdu mosh iotop atop zsh mutt)"`.
+* `node['express42']['packages']` -  Defaults to `"%w(nscd screen vim curl sysstat gdb dstat tcpdump strace htop tmux byobu mailutils ncdu mosh iotop atop zsh mutt)"`.
 * `node['express42']['extra-packages']` -  Defaults to `"[ ... ]"`.
 * `node['express42']['private_networks']` -  Defaults to `"192.168.0.0/16,172.16.0.0/12,10.0.0.0/8"`.
 * `node['express42']['handler']['mail_from']` -  Defaults to `"chef@express42.com"`.
 * `node['express42']['handler']['mail_to']` -  Defaults to `"[ ... ]"`.
+* `node['express42']['kvm_host']['packages']` -  Defaults to `"%w(qemu-kvm libvirt-bin bridge-utils virtinst)"`.
 
 # Recipes
 
@@ -29,6 +34,7 @@ Installs Express42 helpers
 * helpers-express42::mail - Configures mail exception handler.
 * helpers-express42::network - Includes Express 42 network module.
 * helpers-express42::packages - Installs Express 42 extra packages.
+* helpers-express42::kvm_host - Base config and packages for KVM virtualization
 
 # License and Maintainer
 
