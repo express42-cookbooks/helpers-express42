@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/express42-cookbooks/helpers-express42.svg?branch=master)](https://travis-ci.org/express42-cookbooks/helpers-express42)
+[![Build Status](https://travis-ci.org/express42-cookbooks/helpers_express42.svg?branch=master)](https://travis-ci.org/express42-cookbooks/helpers_express42)
 
 # Description
 
@@ -30,11 +30,11 @@ Installs Express42 helpers
 
 # Recipes
 
-* helpers-express42::default - Do nothing.
-* helpers-express42::mail - Configures mail exception handler.
-* helpers-express42::network - Includes Express 42 network module.
-* helpers-express42::packages - Installs Express 42 extra packages.
-* helpers-express42::kvm_host - Base config and packages for KVM virtualization
+* helpers_express42::default - Do nothing.
+* helpers_express42::mail - Configures mail exception handler.
+* helpers_express42::network - Includes Express 42 network module.
+* helpers_express42::packages - Installs Express 42 extra packages.
+* helpers_express42::kvm_host - Base config and packages for KVM virtualization
 
 # License and Maintainer
 

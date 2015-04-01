@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: helpers-express42
+# Cookbook Name:: helpers_express42
 # Recipe:: mail
 #
 # Copyright 2014, LLC Express 42

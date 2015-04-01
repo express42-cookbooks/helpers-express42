@@ -16,5 +16,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[helpers-express42-test]
+      - recipe[helpers_express42_test]
     attributes:
