@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@express42.com'
 license          'MIT'
 description      'Installs Express42 helpers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.5'
+version          '0.1.6'
 
 recipe           'helpers_express42::default', 'Do nothing.'
 recipe           'helpers_express42::mail', 'Configures mail exception handler.'
