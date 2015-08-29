@@ -25,6 +25,8 @@
 #
 
 unless node['express42']['handler']['mail_to'].empty?
-  chef_gem 'pony'
+  chef_gem 'pony' do
+    compile_time false
+  end
   Chef::Config.exception_handlers = [Express42::MailHandler.new(node['express42']['handler']['mail_from'], node['express42']['handler']['mail_to'])]
 end
