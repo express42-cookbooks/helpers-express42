@@ -1,9 +1,9 @@
 from __future__ import print_function
 from twisted.internet.defer import succeed
 import json
-import time
 import os
-from datetime import date
+import time
+from datetime import datetime
 
 current_instance = None
 
@@ -38,8 +38,7 @@ class Express42_Chef(object):
                 return True
         return False
 
-    def run(self):
-        chef_env = None
+    def check_running(self):
         if os.path.isfile("/etc/init.d/chef-client"):
             with open("/etc/init.d/chef-client", "r") as chef_init:
                 for line in chef_init:
@@ -58,39 +57,50 @@ class Express42_Chef(object):
         else:
             status = bcolors.FAIL + 'init file not found' + bcolors.ENDC
 
-        self._sysinfo.add_header("Chef client status", status )
+        return status
 
-        if os.path.isfile('/var/chef/cache/last_successful_chef_run'):
-            last_time = open('/var/chef/cache/last_successful_chef_run', 'r').read()
-            if last_time != "":
-                stime = int(time.time() - int(last_time))/60
-                if stime < 6:
-                    status2 = bcolors.OKGREEN
-                else:
-                    status2 = bcolors.FAIL
-                status2 += str(stime) + " minute(s) ago" + bcolors.ENDC
-            else:
-                status2 = bcolors.FAIL + "unknown" + bcolors.ENDC
+    def get_last_succesful_run(self):
+        if not os.path.isfile('/var/chef/cache/last_successful_chef_run'):
+            return None
+        last_time = open('/var/chef/cache/last_successful_chef_run', 'r').read()
+        if last_time == "":
+            return None
+        return last_time
+
+    def check_last_succesful_run(self, last_succesful_time):
+        if last_succesful_time is None:
+            status = bcolors.FAIL + "unknown" + bcolors.ENDC
         else:
-            status2 = bcolors.FAIL + "unknown" + bcolors.ENDC
-        '''
+            stime = int(time.time() - int(last_succesful_time))/60
+            if stime < 6:
+                status = bcolors.OKGREEN
+            else:
+                status = bcolors.FAIL
+            status += str(stime) + " minute(s) ago" + bcolors.ENDC
+        return status
+
+    def check_last_run(self, last_succesful_time):
         if os.path.isfile('/var/log/chef/client.log'):
             for line in reversed(open("/var/log/chef/client.log").readlines()):
                 if line.find('Chef run process exited') >= 0:
                     ltime = line[line.find('[') + 1:line.find(']')]
                     break
-            ktime = time.strptime(ltime.split('+')[0], '%Y-%m-%dT%H:%M:%S')
-            if ktime > time.ctime(int(last_time)):
+            ktime = datetime.strptime(ltime.split('+')[0], '%Y-%m-%dT%H:%M:%S')
+            if ktime > datetime.fromtimestamp(float(last_succesful_time)):
                 status = bcolors.FAIL + 'unsuccessful' + bcolors.ENDC
             else:
                 status = bcolors.OKGREEN + 'successful' + bcolors.ENDC
         else:
             status = bcolors.FAIL + "unknown" + bcolors.ENDC
 
-        self._sysinfo.add_header("Last chef run was", status+ ' at ' + time.strftime("%d %b %Y %H:%M:%S", ktime) )
-        '''
-        self._sysinfo.add_header("Last succesful chef run", status2 )
+        return status
 
+    def run(self):
 
+        last_time = self.get_last_succesful_run()
+
+        self._sysinfo.add_header("Chef client status", self.check_running())
+        self._sysinfo.add_header("Last succesful chef run", self.check_last_succesful_run(last_time))
+        self._sysinfo.add_header("Last chef run was", self.check_last_run(last_time))
 
         return succeed(None)
