@@ -27,6 +27,7 @@ Installs Express42 helpers
 * `node['express42']['handler']['mail_from']` -  Defaults to `"chef@express42.com"`.
 * `node['express42']['handler']['mail_to']` -  Defaults to `"[ ... ]"`.
 * `node['express42']['kvm_host']['packages']` -  Defaults to `"%w(qemu-kvm libvirt-bin bridge-utils virtinst)"`.
+* `node['express42']['landscape']['plugins']` - Defaults to `"Express42_Chef,Express42_ChefEnv,Express42_Memory,Express42_Load,Disk"`.
 
 # Recipes
 
@@ -35,6 +36,7 @@ Installs Express42 helpers
 * helpers_express42::network - Includes Express 42 network module.
 * helpers_express42::packages - Installs Express 42 extra packages.
 * helpers_express42::kvm_host - Base config and packages for KVM virtualization
+* helpers_express42::motd - Configures Message of the Day
 
 # License and Maintainer
 
