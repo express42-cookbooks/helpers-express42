@@ -28,7 +28,7 @@ include_recipe 'motd::knife_status'
 
 # Finds in /etc/pam.d/sshd line
 #   session    optional     pam_motd.so  motd=/run/motd.dynamic noupdate
-# and changes it to 
+# and changes it to
 #   session    optional     pam_motd.so  motd=/run/motd.dynamic
 # Else on ssh login you'll be seeing info from previous login rather than
 # relevant status
@@ -47,14 +47,14 @@ end
 
 package 'landscape-common'
 
-template '/etc/chef/env.json' do
+template '/etc/chef/env.json' do # ~FC033
   source 'motd/env.json.erb'
   variables(
     prod_env: node['express42']['landscape']['production']
   )
 end
 
-template '/etc/landscape/client.conf' do
+template '/etc/landscape/client.conf' do # ~FC033
   source 'motd/client.conf.erb'
   variables(
     plugins: node['express42']['landscape']['plugins']
