@@ -81,6 +81,7 @@ class Express42_Chef(object):
 
     def check_last_run(self, last_succesful_time):
         if os.path.isfile('/var/log/chef/client.log'):
+            not_found = False
             for line in reversed(open("/var/log/chef/client.log").readlines()):
                 if line.find('Chef run process exited') >= 0:
                     ltime = line[line.find('[') + 1:line.find(']')]
@@ -104,8 +105,8 @@ class Express42_Chef(object):
 
         last_time = self.get_last_succesful_run()
 
-        self._sysinfo.add_header("Chef client status", self.check_running(), "Chef")
-        self._sysinfo.add_header("Last succesful chef run", self.check_last_succesful_run(last_time), "Chef")
-        self._sysinfo.add_header("Last chef run was", self.check_last_run(last_time), "Chef")
+        self._sysinfo.add_header("Chef client status", self.check_running())
+        self._sysinfo.add_header("Last succesful chef run", self.check_last_succesful_run(last_time))
+        self._sysinfo.add_header("Last chef run was", self.check_last_run(last_time))
 
         return succeed(None)

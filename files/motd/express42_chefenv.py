@@ -32,13 +32,13 @@ class Express42_ChefEnv(object):
         with open("/etc/chef/env.json", "r") as json_file:
             chef_env = json.load(json_file)
 
-        if str(chef_env['env']) == str(chef_env['prod_env']):
+        if chef_env['prod_env']:
             env = bcolors.FAIL + bcolors.BOLD + str(chef_env['env']) + bcolors.ENDC
         else:
             env = str(chef_env['env'])
 
-        self._sysinfo.add_header("Node name", bcolors.OKGREEN + str(chef_env['node_name']) + bcolors.ENDC, "ChefEnv")
-        self._sysinfo.add_header("Environment", env, "ChefEnv")
-        self._sysinfo.add_header("Run list", bcolors.OKGREEN + str(chef_env['run_list']) + bcolors.ENDC, "ChefEnv")
+        self._sysinfo.add_header("Node name", bcolors.OKGREEN + str(chef_env['node_name']) + bcolors.ENDC)
+        self._sysinfo.add_header("Environment", env)
+        self._sysinfo.add_header("Run list", bcolors.OKGREEN + str(chef_env['run_list']) + bcolors.ENDC)
 
         return succeed(None)

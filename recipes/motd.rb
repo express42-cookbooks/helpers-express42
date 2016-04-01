@@ -1,18 +1,35 @@
 #
-# Cookbook Name:: java-sample
+# Cookbook Name:: helpers_express42
 # Recipe:: motd
 #
-# Copyright 2016, YOUR_COMPANY_NAME
+# Copyright 2016, LLC Express 42
 #
-# All rights reserved - Do Not Redistribute
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
 include_recipe 'motd::knife_status'
 
-pam_config = "/etc/pam.d/sshd"
+pam_config = '/etc/pam.d/sshd'
 motd_noupdate = /(session\s+\w+\s+pam_motd\.so\s+.*)\s+noupdate\b/m
 
-ruby_block "update motd on ssh login" do
+ruby_block 'update motd on ssh login' do
   block do
     sed = Chef::Util::FileEdit.new(pam_config)
     sed.search_file_replace(motd_noupdate, '\1')
@@ -24,34 +41,26 @@ end
 package 'landscape-common'
 
 template '/etc/chef/env.json' do
-  source 'env.json.erb'
+  source 'motd/env.json.erb'
+  variables(
+    prod_env: node['express42']['landscape']['production']
+  )
 end
 
 template '/etc/landscape/client.conf' do
-  source 'client.conf.erb'
+  source 'motd/client.conf.erb'
   variables(
     plugins: node['express42']['landscape']['plugins']
   )
 end
 
-cookbook_file '/usr/lib/python2.7/dist-packages/landscape/sysinfo/express42_chef.py' do
-  source 'express42_chef.py'
-  action :create
-end
+files = ['express42_chef.py', 'express42_chefenv.py', 'express42_load.py', 'express42_memory.py']
 
-cookbook_file '/usr/lib/python2.7/dist-packages/landscape/sysinfo/express42_chefenv.py' do
-  source 'express42_chefenv.py'
-  action :create
-end
-
-cookbook_file '/usr/lib/python2.7/dist-packages/landscape/sysinfo/express42_load.py' do
-  source 'express42_load.py'
-  action :create
-end
-
-cookbook_file '/usr/lib/python2.7/dist-packages/landscape/sysinfo/express42_memory.py' do
-  source 'express42_memory.py'
-  action :create
+files.each do |file|
+  cookbook_file '/usr/lib/python2.7/dist-packages/landscape/sysinfo/' + file do
+    source 'motd/' + file
+    action :create
+  end
 end
 
 motd '98-knife-status' do
@@ -61,4 +70,3 @@ end
 motd '10-help-text' do
   action :delete
 end
- 
