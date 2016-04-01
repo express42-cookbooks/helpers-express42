@@ -26,6 +26,13 @@
 
 include_recipe 'motd::knife_status'
 
+# Finds in /etc/pam.d/sshd line
+#   session    optional     pam_motd.so  motd=/run/motd.dynamic noupdate
+# and changes it to 
+#   session    optional     pam_motd.so  motd=/run/motd.dynamic
+# Else on ssh login you'll be seeing info from previous login rather than
+# relevant status
+
 pam_config = '/etc/pam.d/sshd'
 motd_noupdate = /(session\s+\w+\s+pam_motd\.so\s+.*)\s+noupdate\b/m
 

@@ -27,7 +27,7 @@ Installs Express42 helpers
 * `node['express42']['handler']['mail_from']` -  Defaults to `"chef@express42.com"`.
 * `node['express42']['handler']['mail_to']` -  Defaults to `"[ ... ]"`.
 * `node['express42']['kvm_host']['packages']` -  Defaults to `"%w(qemu-kvm libvirt-bin bridge-utils virtinst)"`.
-* `node['express42']['landscape']['plugins']` - Defaults to `"Express42_Chef,Express42_ChefEnv,Express42_Memory,Express42_Load,Disk"`.
+* `node['express42']['landscape']['plugins']` - Defaults to `"Express42_ChefEnv,Express42_Chef,Express42_Memory,Express42_Load,Disk"`.
 
 # Recipes
 
