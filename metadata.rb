@@ -19,4 +19,3 @@ supports         'debian'
 supports         'ubuntu'
 
 depends          'sysctl'
-depends          'motd'

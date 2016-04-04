@@ -42,15 +42,15 @@ class Express42_Memory(object):
     def run(self):
         units = [ 'KB', 'MB', 'GB', 'TB' ]
         meminfo = self.meminfo()
-        memfree = int(meminfo['MemFree'].split(' ')[0])
-        memtotal = int(meminfo['MemTotal'].split(' ')[0])
+        memfree = float(meminfo['MemFree'].split(' ')[0])
+        memtotal = float(meminfo['MemTotal'].split(' ')[0])
         mempcnt = 100.0*memfree/memtotal
         i = 0
         while memtotal > 10000:
-            memfree /= 1024
-            memtotal /= 1024
+            memfree /= 1024.0
+            memtotal /= 1024.0
             i += 1
-        msg = '{0}/{1} {2} ({3:.2f}%) '.format(memfree, memtotal, units[i], mempcnt)
+        msg = '{0:.2f}/{1:.2f} {2} ({3:.2f}%) '.format(memfree, memtotal, units[i], mempcnt)
 
         if mempcnt < 85:
             status = bcolors.OKGREEN + msg  + bcolors.ENDC
