@@ -68,11 +68,13 @@ class Express42_Chef(object):
         return last_time
 
     def check_last_succesful_run(self, last_succesful_time):
+        with open("/etc/chef/env.json", "r") as json_file:
+            chef_env = json.load(json_file)
         if last_succesful_time is None:
             status = bcolors.FAIL + "unknown" + bcolors.ENDC
         else:
             stime = int(time.time() - int(last_succesful_time))/60
-            if stime < 6:
+            if stime <= int(chef_env['max_delay']):
                 status = bcolors.OKGREEN
             else:
                 status = bcolors.FAIL

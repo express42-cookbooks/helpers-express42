@@ -32,7 +32,7 @@ class Express42_ChefEnv(object):
         with open("/etc/chef/env.json", "r") as json_file:
             chef_env = json.load(json_file)
 
-        if chef_env['prod_env']:
+        if chef_env['prod_env'] == "true":
             env = bcolors.FAIL + bcolors.BOLD + str(chef_env['env']) + bcolors.ENDC
         else:
             env = str(chef_env['env'])
