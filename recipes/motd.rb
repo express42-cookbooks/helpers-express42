@@ -40,7 +40,7 @@ when 'ubuntu'
       backup 1
       action :create
     end
-  elsif node['platform_version'].to_f >= 12.04
+  else
     node.default['openssh']['server']['print_motd'] = 'no'
   end
 end
