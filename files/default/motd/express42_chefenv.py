@@ -37,8 +37,8 @@ class Express42_ChefEnv(object):
         else:
             env = str(chef_env['env'])
 
-        self._sysinfo.add_header("Node name", bcolors.OKGREEN + str(chef_env['node_name']) + bcolors.ENDC)
+        self._sysinfo.add_header("Node name", str(chef_env['node_name']))
         self._sysinfo.add_header("Environment", env)
-        self._sysinfo.add_header("Run list", bcolors.OKGREEN + str(chef_env['run_list']) + bcolors.ENDC)
+        self._sysinfo.add_header("Run list", str(chef_env['run_list']))
 
         return succeed(None)

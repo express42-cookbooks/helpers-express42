@@ -59,7 +59,7 @@ class Express42_Chef(object):
 
         return status
 
-    def get_last_succesful_run(self):
+    def get_last_successful_run(self):
         if not os.path.isfile('/var/chef/cache/last_successful_chef_run'):
             return None
         last_time = open('/var/chef/cache/last_successful_chef_run', 'r').read()
@@ -67,21 +67,20 @@ class Express42_Chef(object):
             return None
         return last_time
 
-    def check_last_succesful_run(self, last_succesful_time):
+    def check_last_successful_run(self, last_successful_time):
         with open("/etc/chef/env.json", "r") as json_file:
             chef_env = json.load(json_file)
-        if last_succesful_time is None:
+        if last_successful_time is None:
             status = bcolors.FAIL + "unknown" + bcolors.ENDC
         else:
-            stime = int(time.time() - int(last_succesful_time))/60
+            stime = int(time.time() - int(last_successful_time))/60
             if stime <= int(chef_env['max_delay']):
-                status = bcolors.OKGREEN
+                status = str(stime) + " minute(s) ago"
             else:
-                status = bcolors.FAIL
-            status += str(stime) + " minute(s) ago" + bcolors.ENDC
+                status = bcolors.FAIL + str(stime) + " minute(s) ago" + bcolors.ENDC
         return status
 
-    def check_last_run(self, last_succesful_time):
+    def check_last_run(self, last_successful_time):
         if os.path.isfile('/var/log/chef/client.log'):
             not_found = False
             for line in reversed(open("/var/log/chef/client.log").readlines()):
@@ -92,12 +91,12 @@ class Express42_Chef(object):
                 not_found = True
             if not not_found:
                 ktime = datetime.strptime(ltime.split('+')[0], '%Y-%m-%dT%H:%M:%S')
-                if ktime > datetime.fromtimestamp(float(last_succesful_time)):
+                if ktime > datetime.fromtimestamp(float(last_successful_time)):
                     status = bcolors.FAIL + 'unsuccessful' + bcolors.ENDC
                 else:
-                    status = bcolors.OKGREEN + 'successful' + bcolors.ENDC
+                    status = 'successful'
             else:
-                status = bcolors.OKGREEN + 'successful' + bcolors.ENDC
+                status = 'successful'
         else:
             status = bcolors.FAIL + "unknown" + bcolors.ENDC
 
@@ -105,10 +104,10 @@ class Express42_Chef(object):
 
     def run(self):
 
-        last_time = self.get_last_succesful_run()
+        last_time = self.get_last_successful_run()
 
         self._sysinfo.add_header("Chef client status", self.check_running())
-        self._sysinfo.add_header("Last succesful chef run", self.check_last_succesful_run(last_time))
+        self._sysinfo.add_header("Last successful chef run", self.check_last_successful_run(last_time))
         self._sysinfo.add_header("Last chef run was", self.check_last_run(last_time))
 
         return succeed(None)
