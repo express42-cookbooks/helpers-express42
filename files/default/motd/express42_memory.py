@@ -54,7 +54,7 @@ class Express42_Memory(object):
         msg = '{0:.2f}/{1:.2f} {2} ({3:.2f}%) '.format(memused, memtotal, units[i], mempcnt)
 
         if mempcnt < 85:
-            status = bcolors.OKGREEN + msg  + bcolors.ENDC
+            status = msg
         else:
             status = bcolors.FAIL + msg + bcolors.ENDC
 

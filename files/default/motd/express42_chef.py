@@ -75,10 +75,9 @@ class Express42_Chef(object):
         else:
             stime = int(time.time() - int(last_succesful_time))/60
             if stime <= int(chef_env['max_delay']):
-                status = bcolors.OKGREEN
+                status = str(stime) + " minute(s) ago"
             else:
-                status = bcolors.FAIL
-            status += str(stime) + " minute(s) ago" + bcolors.ENDC
+                status = bcolors.FAIL + str(stime) + " minute(s) ago" + bcolors.ENDC
         return status
 
     def check_last_run(self, last_succesful_time):
@@ -95,9 +94,9 @@ class Express42_Chef(object):
                 if ktime > datetime.fromtimestamp(float(last_succesful_time)):
                     status = bcolors.FAIL + 'unsuccessful' + bcolors.ENDC
                 else:
-                    status = bcolors.OKGREEN + 'successful' + bcolors.ENDC
+                    status = 'successful'
             else:
-                status = bcolors.OKGREEN + 'successful' + bcolors.ENDC
+                status = 'successful'
         else:
             status = bcolors.FAIL + "unknown" + bcolors.ENDC
 
