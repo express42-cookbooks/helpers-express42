@@ -6,8 +6,7 @@ require 'chef/handler'
 module Motd
   # Class for reporting last succesful run status to file
   class KnifeStatus < Chef::Handler
-    def initialize
-    end
+    def initialize; end
 
     def report
       if run_status.success?

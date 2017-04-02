@@ -4,6 +4,7 @@ maintainer_email 'cookbooks@express42.com'
 license          'MIT'
 description      'Installs Express42 helpers'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+chef_version     '>= 12'
 version          '0.1.8'
 source_url       'https://github.com/express42-cookbooks/helpers_express42' if respond_to?(:source_url)
 issues_url       'https://github.com/express42-cookbooks/helpers_express42/issues' if respond_to?(:issues_url)

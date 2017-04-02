@@ -29,7 +29,6 @@ require 'ipaddr'
 module Express42
   # Network module has methods to detect private and public networks
   module Network
-    # rubocop:disable CyclomaticComplexity, MethodLength, Metrics/AbcSize
     def net_get_networks(the_node = node)
       networks = { private: [], public: [] }
 
