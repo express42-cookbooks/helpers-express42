@@ -2,9 +2,9 @@ language: ruby
 sudo: false
 cache: bundler
 rvm:
-  - 2.1.5
+  - 2.2.2
 script:
-  - bundle exec rubocop
+  - bundle exec cookstyle
   - bundle exec foodcritic --contex --epic-fail any .
 notifications:
   flowdock: d4fbb65de6c9c868a2dfc4b38fbd34c1
