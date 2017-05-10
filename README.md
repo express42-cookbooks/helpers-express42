@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/express42-cookbooks/helpers_express42.svg?branch=master)](https://travis-ci.org/express42-cookbooks/helpers_express42)
+[![Build Status](https://travis-ci.org/express42/helpers_express42.svg?branch=master)](https://travis-ci.org/express42/helpers_express42)
 
 # Description
 
